@@ -1,0 +1,239 @@
+﻿.modulo-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.modulo-header {
+  margin-bottom: 1.5rem;
+}
+
+.modulo-header h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.75rem;
+}
+
+.modulo-header p {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* 8.4. Alerta de Conflito com Destaque de Bloqueio */
+.alerta {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.alerta-conflito {
+  background-color: #fef2f2;
+  border: 2px solid #ef4444;
+  color: #991b1b;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.alerta-conteudo {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.alerta-icone {
+  font-size: 2rem;
+}
+
+.alerta-conflito strong {
+  font-size: 1.05rem;
+  display: block;
+}
+
+.alerta-conflito p {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+.btn-fechar-alerta {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #991b1b;
+  cursor: pointer;
+}
+
+.alerta-sucesso {
+  background-color: #dcfce7;
+  border: 1px solid #22c55e;
+  color: #15803d;
+  font-weight: 500;
+}
+
+/* Layout em duas colunas */
+.agendamento-grid-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.form-card, .lista-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.card-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.15rem;
+}
+
+.form-group {
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.form-group select, .form-group input {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.form-group select:focus, .form-group input:focus {
+  border-color: #3b82f6;
+}
+
+.campo-invalido {
+  border-color: #ef4444 !important;
+  background-color: #fff5f5 !important;
+}
+
+.erro-texto {
+  color: #ef4444;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.linha-dupla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.btn-agendar {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.btn-agendar:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.btn-agendar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Tabela */
+.tabela-scroll {
+  overflow-x: auto;
+}
+
+.tabela-dados {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabela-dados th {
+  background-color: #f8fafc;
+  padding: 0.75rem 0.9rem;
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tabela-dados td {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.tabela-dados tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.badge-hora {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.badge-servico {
+  background-color: #f1f5f9;
+  color: #334155;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.profissional-destaque {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cadeira-sub {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.sem-registros {
+  text-align: center;
+  padding: 2.5rem !important;
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  .agendamento-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}

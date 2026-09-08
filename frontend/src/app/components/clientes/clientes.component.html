@@ -1,0 +1,141 @@
+﻿<div class="modulo-container">
+  <div class="modulo-header">
+    <div>
+      <h2>👥 Gestão de Clientes</h2>
+      <p>Gerencie o cadastro, visualize dados e busque clientes do salão</p>
+    </div>
+    <button class="btn-principal" (click)="abrirModalNovo()">
+      ➕ Novo Cliente
+    </button>
+  </div>
+
+  <!-- Alerta de feedback de acao -->
+  <div *ngIf="mensagemAlerta" [ngClass]="['alerta', tipoAlerta === 'sucesso' ? 'alerta-sucesso' : 'alerta-erro']">
+    {{ mensagemAlerta }}
+  </div>
+
+  <!-- 7.2. Campo de busca (filtro por nome ou documento) -->
+  <div class="busca-barra">
+    <div class="busca-input-wrapper">
+      <span class="busca-icon">🔍</span>
+      <input
+        type="text"
+        [(ngModel)]="termoBusca"
+        (input)="carregarClientes()"
+        placeholder="Buscar por nome ou CPF..."
+      />
+    </div>
+    <button class="btn-secundario" (click)="carregarClientes()">Buscar</button>
+  </div>
+
+  <!-- 7.1. Tabela/Grid de Clientes -->
+  <div class="tabela-card">
+    <table class="tabela-dados">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Telefone</th>
+          <th>E-mail</th>
+          <th style="text-align: center;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes">
+          <td>{{ c.id }}</td>
+          <td><strong>{{ c.nome }}</strong></td>
+          <td>{{ c.cpf }}</td>
+          <td>{{ c.telefone }}</td>
+          <td>{{ c.email || 'Não informado' }}</td>
+          <td class="acoes-coluna">
+            <button class="btn-acao btn-editar" (click)="abrirModalEditar(c)" title="Editar cliente">
+              ✏️ Editar
+            </button>
+            <button class="btn-acao btn-excluir" (click)="excluir(c)" title="Excluir cliente">
+              🗑️ Excluir
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="clientes.length === 0">
+          <td colspan="6" class="sem-registros">
+            Nenhum cliente encontrado.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 7.3 & 7.4. Modal de Formulario com Validacao Visual -->
+  <div class="modal-overlay" *ngIf="exibirModal">
+    <div class="modal-conteudo">
+      <div class="modal-header">
+        <h3>{{ editando ? '✏️ Editar Cliente' : '➕ Novo Cliente' }}</h3>
+        <button class="btn-fechar" (click)="fecharModal()">✕</button>
+      </div>
+
+      <form (ngSubmit)="salvar()">
+        <!-- Campo Nome -->
+        <div class="form-group">
+          <label>Nome Completo *</label>
+          <input
+            type="text"
+            [(ngModel)]="clienteAtual.nome"
+            name="nome"
+            placeholder="Nome completo do cliente"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.nome)"
+          />
+          <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.nome)">
+            O campo Nome é obrigatório.
+          </span>
+        </div>
+
+        <!-- Campo CPF -->
+        <div class="form-group">
+          <label>CPF *</label>
+          <input
+            type="text"
+            [(ngModel)]="clienteAtual.cpf"
+            name="cpf"
+            placeholder="000.000.000-00"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.cpf)"
+          />
+          <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.cpf)">
+            O campo CPF é obrigatório.
+          </span>
+        </div>
+
+        <!-- Campo Telefone -->
+        <div class="form-group">
+          <label>Telefone / WhatsApp *</label>
+          <input
+            type="text"
+            [(ngModel)]="clienteAtual.telefone"
+            name="telefone"
+            placeholder="(00) 00000-0000"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.telefone)"
+          />
+          <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.telefone)">
+            O campo Telefone é obrigatório.
+          </span>
+        </div>
+
+        <!-- Campo E-mail -->
+        <div class="form-group">
+          <label>E-mail</label>
+          <input
+            type="email"
+            [(ngModel)]="clienteAtual.email"
+            name="email"
+            placeholder="exemplo@email.com"
+          />
+        </div>
+
+        <div class="modal-rodape">
+          <button type="button" class="btn-cancelar" (click)="fecharModal()">Cancelar</button>
+          <button type="submit" class="btn-principal">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

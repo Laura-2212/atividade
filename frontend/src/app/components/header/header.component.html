@@ -1,0 +1,28 @@
+﻿<header class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <span class="brand-icon">✂️</span>
+      <span class="brand-title">Salão & Barbearia</span>
+    </div>
+
+    <!-- 6.1. Navegacao para "Clientes" e "Agendamentos" -->
+    <nav class="navbar-links">
+      <a routerLink="/agendamentos" routerLinkActive="ativo" class="nav-link">
+        📅 Agendamentos
+      </a>
+      <a routerLink="/clientes" routerLinkActive="ativo" class="nav-link">
+        👥 Clientes
+      </a>
+    </nav>
+
+    <!-- 6.1. Exibir nome do usuario logado e botao de logout -->
+    <div class="navbar-user">
+      <span class="user-badge" *ngIf="usuario">
+        👤 <strong>{{ usuario.nome }}</strong>
+      </span>
+      <button class="btn-logout" (click)="sair()" title="Encerrar sessão">
+        🚪 Sair
+      </button>
+    </div>
+  </div>
+</header>

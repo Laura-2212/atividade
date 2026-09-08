@@ -1,0 +1,166 @@
+﻿<div class="modulo-container">
+  <div class="modulo-header">
+    <div>
+      <h2>📅 Agendamentos do Salão & Barbearia</h2>
+      <p>Organize os horários, evite conflitos de cadeiras e gerencie o fluxo de atendimento</p>
+    </div>
+  </div>
+
+  <!-- 8.4. Alerta de Bloqueio em caso de Conflito de Horario -->
+  <div *ngIf="alertaConflito" class="alerta alerta-conflito" role="alert">
+    <div class="alerta-conteudo">
+      <span class="alerta-icone">🚫</span>
+      <div>
+        <strong>Ação Bloqueada:</strong>
+        <p>{{ alertaConflito }}</p>
+      </div>
+    </div>
+    <button class="btn-fechar-alerta" (click)="alertaConflito = ''">✕</button>
+  </div>
+
+  <!-- Alerta de Sucesso -->
+  <div *ngIf="mensagemSucesso" class="alerta alerta-sucesso">
+    <span>✅ {{ mensagemSucesso }}</span>
+  </div>
+
+  <div class="agendamento-grid-layout">
+    <!-- 8.2. Formulario de Novo Agendamento -->
+    <div class="form-card">
+      <div class="card-header">
+        <h3>➕ Novo Agendamento</h3>
+      </div>
+
+      <form (ngSubmit)="salvar()">
+        <!-- Selecao de Cliente -->
+        <div class="form-group">
+          <label for="cliente">Cliente *</label>
+          <select
+            id="cliente"
+            name="cliente_id"
+            [(ngModel)]="novoAgendamento.cliente_id"
+            [class.campo-invalido]="submetido && !novoAgendamento.cliente_id"
+          >
+            <option [ngValue]="0" disabled selected>Selecione um cliente...</option>
+            <option *ngFor="let c of clientes" [ngValue]="c.id">
+              {{ c.nome }} ({{ c.cpf }})
+            </option>
+          </select>
+          <span class="erro-texto" *ngIf="submetido && !novoAgendamento.cliente_id">
+            Selecione o cliente.
+          </span>
+        </div>
+
+        <!-- 8.3. Campo Recurso: Dropdown populado dinamicamente -->
+        <div class="form-group">
+          <label for="recurso">Profissional / Cadeira (Recurso) *</label>
+          <select
+            id="recurso"
+            name="recurso_id"
+            [(ngModel)]="novoAgendamento.recurso_id"
+            [class.campo-invalido]="submetido && !novoAgendamento.recurso_id"
+          >
+            <option [ngValue]="0" disabled selected>Selecione um profissional/cadeira...</option>
+            <option *ngFor="let r of recursos" [ngValue]="r.id">
+              {{ r.nome_profissional }} — {{ r.cadeira_mesa }} ({{ r.especialidade }})
+            </option>
+          </select>
+          <span class="erro-texto" *ngIf="submetido && !novoAgendamento.recurso_id">
+            Selecione o profissional/cadeira.
+          </span>
+        </div>
+
+        <!-- Servico -->
+        <div class="form-group">
+          <label for="servico">Serviço *</label>
+          <select
+            id="servico"
+            name="servico"
+            [(ngModel)]="novoAgendamento.servico"
+            [class.campo-invalido]="submetido && !novoAgendamento.servico"
+          >
+            <option value="" disabled selected>Selecione o tipo de serviço...</option>
+            <option *ngFor="let s of servicosDisponiveis" [value]="s">{{ s }}</option>
+          </select>
+          <span class="erro-texto" *ngIf="submetido && !novoAgendamento.servico">
+            Selecione o serviço.
+          </span>
+        </div>
+
+        <div class="linha-dupla">
+          <!-- Data -->
+          <div class="form-group">
+            <label for="data">Data *</label>
+            <input
+              type="date"
+              id="data"
+              name="data_agendamento"
+              [(ngModel)]="novoAgendamento.data_agendamento"
+              [class.campo-invalido]="submetido && !novoAgendamento.data_agendamento"
+            />
+            <span class="erro-texto" *ngIf="submetido && !novoAgendamento.data_agendamento">
+              Informe a data.
+            </span>
+          </div>
+
+          <!-- Hora -->
+          <div class="form-group">
+            <label for="hora">Hora *</label>
+            <input
+              type="time"
+              id="hora"
+              name="hora_agendamento"
+              [(ngModel)]="novoAgendamento.hora_agendamento"
+              [class.campo-invalido]="submetido && !novoAgendamento.hora_agendamento"
+            />
+            <span class="erro-texto" *ngIf="submetido && !novoAgendamento.hora_agendamento">
+              Informe o horário.
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-agendar" [disabled]="carregando">
+          {{ carregando ? 'Processando...' : 'Confirmar Agendamento' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- 8.1. Lista de Agendamentos Realizados -->
+    <div class="lista-card">
+      <div class="card-header">
+        <h3>📋 Horários Marcados ({{ agendamentos.length }})</h3>
+      </div>
+
+      <div class="tabela-scroll">
+        <table class="tabela-dados">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Hora</th>
+              <th>Cliente</th>
+              <th>Profissional / Cadeira</th>
+              <th>Serviço</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of agendamentos">
+              <td><strong>{{ a.data_agendamento }}</strong></td>
+              <td><span class="badge-hora">{{ a.hora_agendamento }}</span></td>
+              <td>{{ a.cliente_nome }}</td>
+              <td>
+                <span class="profissional-destaque">{{ a.nome_profissional }}</span>
+                <br />
+                <small class="cadeira-sub">{{ a.cadeira_mesa }}</small>
+              </td>
+              <td><span class="badge-servico">{{ a.servico }}</span></td>
+            </tr>
+            <tr *ngIf="agendamentos.length === 0">
+              <td colspan="5" class="sem-registros">
+                Nenhum agendamento realizado até o momento.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

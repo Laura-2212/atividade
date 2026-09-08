@@ -1,0 +1,6 @@
+﻿<!-- 6.1. Header principal exibido apos login com usuario logado e navegacao -->
+<app-header *ngIf="authService.isAutenticado()"></app-header>
+
+<main class="app-conteudo">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,49 @@
+﻿<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-icon">✂️</div>
+      <h2>Salão & Barbearia Estilo</h2>
+      <p>Sistema de Gestão e Agendamento</p>
+    </div>
+
+    <!-- 5.1. Alerta de erro exibido na tela em caso de falha -->
+    <div *ngIf="mensagemErro" class="alerta-erro" role="alert">
+      <span class="icone-alerta">⚠️</span>
+      <span>{{ mensagemErro }}</span>
+    </div>
+
+    <form (ngSubmit)="realizarLogin()">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="ex: admin@salao.com"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          [(ngModel)]="senha"
+          placeholder="Digite sua senha"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-entrar" [disabled]="carregando">
+        {{ carregando ? 'Entrando...' : 'Entrar no Sistema' }}
+      </button>
+    </form>
+
+    <div class="dica-acesso">
+      <small><strong>Credenciais padrão:</strong> admin@salao.com / 123456</small>
+    </div>
+  </div>
+</div>
