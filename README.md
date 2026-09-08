@@ -134,7 +134,6 @@ Desenvolvido em **Angular 22** com componentes standalone, formulários reativos
 - **5. Tela de Login**:
   - Formulário com campos de E-mail e Senha.
   - Credenciais de teste: `admin@salao.com` / `2401`.
-  - Tratamento de erro: banner visual em vermelho informando o motivo exato caso ocorra falha de credenciais.
 - **6. Interface Principal (Header)**:
   - Exibe o nome do usuário autenticado no canto superior.
   - Botão de logout ("Sair") que limpa a sessão e redireciona.
