@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS agendamentos (
 -- POPULAÇÃO INICIAL: Usuário Administrador
 -- -------------------------------------------------------------
 INSERT INTO usuarios (nome, email, senha) VALUES 
-('Administrador', 'admin@salao.com', '123456');
+('Administrador', 'admin@salao.com', '2401');
 
 -- -------------------------------------------------------------
 -- POPULAÇÃO INICIAL: Clientes

@@ -1,4 +1,4 @@
-﻿import { Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class LoginComponent {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  email = 'admin@salao.com';
+  email = '';
   senha = '';
   mensagemErro = '';
   carregando = false;

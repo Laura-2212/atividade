@@ -1,8 +1,8 @@
-﻿const pool = require('./db');
+const pool = require('./db');
 
 // Dados iniciais para fallback caso o banco MySQL nao esteja ativo
 const memoria = {
-  usuarios: [{ id: 1, nome: 'Administrador', email: 'admin@salao.com', senha: '123456' }],
+  usuarios: [{ id: 1, nome: 'Administrador', email: 'admin@salao.com', senha: '2401' }],
   recursos: [
     { id: 1, nome_profissional: 'Barbeiro Pedro', cadeira_mesa: 'Cadeira 01 - Barbearia', especialidade: 'Barba e Corte Masculino' },
     { id: 2, nome_profissional: 'Cabeleireira Ana', cadeira_mesa: 'Cadeira 02 - Salao Principal', especialidade: 'Coloracao e Corte Feminino' },

@@ -1,4 +1,4 @@
-﻿# Sistema de Agendamento - Salão de Beleza & Barbearia
+# Sistema de Agendamento - Salão de Beleza & Barbearia
 
 > **Avaliação de Habilidade Técnica (SAEP)**  
 > **Tema 12**: Salão de Beleza / Barbearia  
@@ -133,7 +133,7 @@ Desenvolvido em **Angular 22** com componentes standalone, formulários reativos
 
 - **5. Tela de Login**:
   - Formulário com campos de E-mail e Senha.
-  - Credenciais de teste: `admin@salao.com` / `123456`.
+  - Credenciais de teste: `admin@salao.com` / `2401`.
   - Tratamento de erro: banner visual em vermelho informando o motivo exato caso ocorra falha de credenciais.
 - **6. Interface Principal (Header)**:
   - Exibe o nome do usuário autenticado no canto superior.
@@ -157,7 +157,7 @@ Desenvolvido em **Angular 22** com componentes standalone, formulários reativos
 
 | ID | Cenário de Teste | Procedimento / Passos | Dados de Entrada | Resultado Esperado | Status |
 |:--:|---|---|---|---|:---:|
-| **CT-01** | Autenticação com sucesso | 1. Acessar `/login`<br>2. Informar credenciais válidas<br>3. Clicar em "Entrar" | `admin@salao.com` / `123456` | Login realizado, usuário salvo na sessão e redirecionamento para `/agendamentos`. | **Aprovado** |
+| **CT-01** | Autenticação com sucesso | 1. Acessar `/login`<br>2. Informar credenciais válidas<br>3. Clicar em "Entrar" | `admin@salao.com` / `2401` | Login realizado, usuário salvo na sessão e redirecionamento para `/agendamentos`. | **Aprovado** |
 | **CT-02** | Autenticação com credenciais incorretas | 1. Acessar `/login`<br>2. Informar senha inválida<br>3. Clicar em "Entrar" | `admin@salao.com` / `senha123` | Exibição de alerta visual: *"E-mail ou senha inválidos."* | **Aprovado** |
 | **CT-03** | Interface principal e Logout | 1. Efetuar login<br>2. Verificar nome no header<br>3. Clicar em "Sair" | Clique no botão "Sair" | Sessão limpa, cabeçalho ocultado e redirecionamento para a tela de login. | **Aprovado** |
 | **CT-04** | Listagem e filtro de clientes | 1. Acessar `/clientes`<br>2. Digitar no campo de busca | Termo: `Carlos` ou `222.` | Grade exibe apenas o cliente correspondente ao filtro informado. | **Aprovado** |
@@ -217,4 +217,4 @@ Desenvolvido em **Angular 22** com componentes standalone, formulários reativos
 2. Abra seu navegador em: `http://localhost:4200`.
 3. Utilize o login:
    - **E-mail**: `admin@salao.com`
-   - **Senha**: `123456`
+   - **Senha**: `2401`
