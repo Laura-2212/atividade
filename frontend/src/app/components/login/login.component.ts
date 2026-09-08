@@ -43,9 +43,13 @@ export class LoginComponent {
     this.router.navigate(['/agendamentos']);
   }
 
-  // Exibe mensagem de falha em caso de credenciais invalidas
+  // Exibe mensagem de falha em caso de credenciais invalidas ou servidor offline
   private tratarErro(err: any): void {
     this.carregando = false;
-    this.mensagemErro = err.error?.message || 'Falha de conexao com o servidor.';
+    if (err.status === 0 || err.status === 504) {
+      this.mensagemErro = 'Servidor backend offline. Inicie o backend na pasta backend (npm start).';
+    } else {
+      this.mensagemErro = err.error?.message || 'E-mail ou senha inválidos.';
+    }
   }
 }
