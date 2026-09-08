@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService, Cliente } from '../../services/api.service';
@@ -13,6 +13,7 @@ import { ApiService, Cliente } from '../../services/api.service';
 export class ClientesComponent implements OnInit {
   private api = inject(ApiService);
 
+  todosClientes: Cliente[] = [];
   clientes: Cliente[] = [];
   termoBusca = '';
   exibirModal = false;
@@ -27,12 +28,27 @@ export class ClientesComponent implements OnInit {
     this.carregarClientes();
   }
 
-  // 7.1 & 7.2: Carrega clientes com suporte a busca por nome ou documento
+  // 7.1 & 7.2: Carrega clientes da API
   carregarClientes(): void {
-    this.api.listarClientes(this.termoBusca).subscribe({
-      next: (res) => (this.clientes = res),
+    this.api.listarClientes().subscribe({
+      next: (res) => {
+        this.todosClientes = res;
+        this.filtrarClientes();
+      },
       error: () => this.exibirAviso('Erro ao carregar clientes.', 'erro')
     });
+  }
+
+  // Filtra clientes instantaneamente em memoria com zero delay
+  filtrarClientes(): void {
+    if (!this.termoBusca || !this.termoBusca.trim()) {
+      this.clientes = [...this.todosClientes];
+      return;
+    }
+    const termo = this.termoBusca.toLowerCase().trim();
+    this.clientes = this.todosClientes.filter(c =>
+      c.nome.toLowerCase().includes(termo) || c.cpf.includes(termo)
+    );
   }
 
   // Abre modal para cadastro de novo cliente

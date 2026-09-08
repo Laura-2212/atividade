@@ -1,6 +1,6 @@
 ﻿const { pool, memoria, checarMySQL } = require('../store');
 
-// Consulta clientes no banco de dados ou memoria com filtro opcional
+// Consulta clientes no banco de dados ou memoria ordenados de forma crescente
 async function buscarClientes(busca) {
   const isMysql = await checarMySQL();
   if (isMysql) {
@@ -10,13 +10,14 @@ async function buscarClientes(busca) {
       sql += ' WHERE nome LIKE ? OR cpf LIKE ?';
       params.push(`%${busca}%`, `%${busca}%`);
     }
-    sql += ' ORDER BY id DESC';
+    sql += ' ORDER BY id ASC';
     const [rows] = await pool.query(sql, params);
     return rows;
   }
-  if (!busca) return memoria.clientes;
+  const lista = [...memoria.clientes].sort((a, b) => a.id - b.id);
+  if (!busca) return lista;
   const termo = busca.toLowerCase();
-  return memoria.clientes.filter(c => c.nome.toLowerCase().includes(termo) || c.cpf.includes(termo));
+  return lista.filter(c => c.nome.toLowerCase().includes(termo) || c.cpf.includes(termo));
 }
 
 // Endpoint GET: Lista clientes
@@ -29,7 +30,23 @@ async function listar(req, res) {
   }
 }
 
-// Insere registro de cliente no banco ou memoria
+// Verifica se ja existe cliente cadastrado com o mesmo CPF
+async function checarCpfExistente(cpf, ignorarId = null) {
+  const isMysql = await checarMySQL();
+  if (isMysql) {
+    let sql = 'SELECT id FROM clientes WHERE cpf = ?';
+    const params = [cpf];
+    if (ignorarId) {
+      sql += ' AND id != ?';
+      params.push(ignorarId);
+    }
+    const [rows] = await pool.query(sql, params);
+    return rows.length > 0;
+  }
+  return memoria.clientes.some(c => c.cpf === cpf && (!ignorarId || c.id !== Number(ignorarId)));
+}
+
+// Insere registro de cliente no banco ou memoria gerando ID sequencial logico
 async function inserirCliente(dados) {
   const { nome, cpf, telefone, email } = dados;
   const isMysql = await checarMySQL();
@@ -40,18 +57,23 @@ async function inserirCliente(dados) {
     );
     return { id: res.insertId, nome, cpf, telefone, email };
   }
-  const novo = { id: Date.now(), nome, cpf, telefone, email };
-  memoria.clientes.unshift(novo);
+  const proximoId = memoria.clientes.reduce((max, c) => Math.max(max, c.id), 0) + 1;
+  const novo = { id: proximoId, nome, cpf, telefone, email: email || '' };
+  memoria.clientes.push(novo);
   return novo;
 }
 
-// Endpoint POST: Cadastra novo cliente
+// Endpoint POST: Cadastra novo cliente com validacao de campos e unicidade de CPF
 async function criar(req, res) {
   const { nome, cpf, telefone } = req.body;
   if (!nome || !cpf || !telefone) {
     return res.status(400).json({ message: 'Nome, CPF e Telefone sao obrigatorios.' });
   }
   try {
+    const cpfDuplicado = await checarCpfExistente(cpf);
+    if (cpfDuplicado) {
+      return res.status(400).json({ message: 'Ja existe um cliente cadastrado com este CPF.' });
+    }
     const novo = await inserirCliente(req.body);
     return res.status(201).json(novo);
   } catch (err) {
@@ -72,11 +94,11 @@ async function salvarEdicaoCliente(id, dados) {
   }
   const idx = memoria.clientes.findIndex(c => c.id === Number(id));
   if (idx !== -1) {
-    memoria.clientes[idx] = { id: Number(id), nome, cpf, telefone, email };
+    memoria.clientes[idx] = { id: Number(id), nome, cpf, telefone, email: email || '' };
   }
 }
 
-// Endpoint PUT: Atualiza cliente existente
+// Endpoint PUT: Atualiza cliente existente com checagem de CPF
 async function atualizar(req, res) {
   const { id } = req.params;
   const { nome, cpf, telefone } = req.body;
@@ -84,6 +106,10 @@ async function atualizar(req, res) {
     return res.status(400).json({ message: 'Nome, CPF e Telefone sao obrigatorios.' });
   }
   try {
+    const cpfDuplicado = await checarCpfExistente(cpf, id);
+    if (cpfDuplicado) {
+      return res.status(400).json({ message: 'Ja existe outro cliente com este CPF.' });
+    }
     await salvarEdicaoCliente(id, req.body);
     return res.json({ message: 'Cliente atualizado com sucesso!' });
   } catch (err) {

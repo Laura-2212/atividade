@@ -15,26 +15,13 @@
     <form (ngSubmit)="realizarLogin()">
       <div class="form-group">
         <label for="email">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          [(ngModel)]="email"
-          placeholder="ex: usuario@dominio.com"
-          required
-        />
+        <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="ex: usuario@dominio.com"
+          required />
       </div>
 
       <div class="form-group">
         <label for="senha">Senha</label>
-        <input
-          type="password"
-          id="senha"
-          name="senha"
-          [(ngModel)]="senha"
-          placeholder="Digite sua senha"
-          required
-        />
+        <input type="password" id="senha" name="senha" [(ngModel)]="senha" placeholder="Digite sua senha" required />
       </div>
 
       <button type="submit" class="btn-entrar" [disabled]="carregando">

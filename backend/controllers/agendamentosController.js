@@ -10,21 +10,23 @@ async function buscarAgendamentos() {
       FROM agendamentos a
       JOIN clientes c ON a.cliente_id = c.id
       JOIN recursos r ON a.recurso_id = r.id
-      ORDER BY a.data_agendamento DESC, a.hora_agendamento ASC`;
+      ORDER BY a.data_agendamento ASC, a.hora_agendamento ASC`;
     const [rows] = await pool.query(sql);
     return rows;
   }
-  return memoria.agendamentos.map(a => {
-    const cli = memoria.clientes.find(c => c.id === Number(a.cliente_id));
-    const rec = memoria.recursos.find(r => r.id === Number(a.recurso_id));
-    return {
-      id: a.id, servico: a.servico, data_agendamento: a.data_agendamento,
-      hora_agendamento: a.hora_agendamento,
-      cliente_nome: cli ? cli.nome : 'Cliente Desconhecido',
-      nome_profissional: rec ? rec.nome_profissional : 'Profissional',
-      cadeira_mesa: rec ? rec.cadeira_mesa : 'Cadeira'
-    };
-  });
+  return [...memoria.agendamentos]
+    .sort((a, b) => a.data_agendamento.localeCompare(b.data_agendamento) || a.hora_agendamento.localeCompare(b.hora_agendamento))
+    .map(a => {
+      const cli = memoria.clientes.find(c => c.id === Number(a.cliente_id));
+      const rec = memoria.recursos.find(r => r.id === Number(a.recurso_id));
+      return {
+        id: a.id, servico: a.servico, data_agendamento: a.data_agendamento,
+        hora_agendamento: a.hora_agendamento,
+        cliente_nome: cli ? cli.nome : 'Cliente Desconhecido',
+        nome_profissional: rec ? rec.nome_profissional : 'Profissional',
+        cadeira_mesa: rec ? rec.cadeira_mesa : 'Cadeira'
+      };
+    });
 }
 
 // Endpoint GET: Lista agendamentos
@@ -54,7 +56,7 @@ async function verificarConflito(recursoId, data, hora) {
   });
 }
 
-// Salva o novo agendamento no banco ou memoria
+// Salva o novo agendamento no banco ou memoria gerando ID sequencial
 async function salvarAgendamento(dados) {
   const { cliente_id, recurso_id, servico, data_agendamento, hora_agendamento } = dados;
   const isMysql = await checarMySQL();
@@ -66,8 +68,9 @@ async function salvarAgendamento(dados) {
     );
     return { id: res.insertId };
   }
-  const novo = { id: Date.now(), cliente_id, recurso_id, servico, data_agendamento, hora_agendamento: horaNorm };
-  memoria.agendamentos.unshift(novo);
+  const proximoId = memoria.agendamentos.reduce((max, a) => Math.max(max, a.id), 0) + 1;
+  const novo = { id: proximoId, cliente_id, recurso_id, servico, data_agendamento, hora_agendamento: horaNorm };
+  memoria.agendamentos.push(novo);
   return { id: novo.id };
 }
 
