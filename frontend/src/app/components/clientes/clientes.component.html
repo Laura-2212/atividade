@@ -18,12 +18,7 @@
   <div class="busca-barra">
     <div class="busca-input-wrapper">
       <span class="busca-icon">🔍</span>
-      <input
-        type="text"
-        [(ngModel)]="termoBusca"
-        (input)="filtrarClientes()"
-        placeholder="Buscar por nome ou CPF..."
-      />
+      <input type="text" [(ngModel)]="termoBusca" (input)="filtrarClientes()" placeholder="Buscar por nome ou CPF..." />
     </div>
     <button class="btn-secundario" (click)="carregarClientes()">Buscar</button>
   </div>
@@ -78,13 +73,8 @@
         <!-- Campo Nome -->
         <div class="form-group">
           <label>Nome Completo *</label>
-          <input
-            type="text"
-            [(ngModel)]="clienteAtual.nome"
-            name="nome"
-            placeholder="Nome completo do cliente"
-            [class.campo-invalido]="isCampoInvalido(clienteAtual.nome)"
-          />
+          <input type="text" [(ngModel)]="clienteAtual.nome" name="nome" placeholder="Nome completo do cliente"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.nome)" />
           <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.nome)">
             O campo Nome é obrigatório.
           </span>
@@ -93,13 +83,8 @@
         <!-- Campo CPF -->
         <div class="form-group">
           <label>CPF *</label>
-          <input
-            type="text"
-            [(ngModel)]="clienteAtual.cpf"
-            name="cpf"
-            placeholder="000.000.000-00"
-            [class.campo-invalido]="isCampoInvalido(clienteAtual.cpf)"
-          />
+          <input type="text" [(ngModel)]="clienteAtual.cpf" name="cpf" placeholder="000.000.000-00"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.cpf)" />
           <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.cpf)">
             O campo CPF é obrigatório.
           </span>
@@ -108,13 +93,8 @@
         <!-- Campo Telefone -->
         <div class="form-group">
           <label>Telefone / WhatsApp *</label>
-          <input
-            type="text"
-            [(ngModel)]="clienteAtual.telefone"
-            name="telefone"
-            placeholder="(00) 00000-0000"
-            [class.campo-invalido]="isCampoInvalido(clienteAtual.telefone)"
-          />
+          <input type="text" [(ngModel)]="clienteAtual.telefone" name="telefone" placeholder="(00) 00000-0000"
+            [class.campo-invalido]="isCampoInvalido(clienteAtual.telefone)" />
           <span class="erro-texto" *ngIf="isCampoInvalido(clienteAtual.telefone)">
             O campo Telefone é obrigatório.
           </span>
@@ -123,12 +103,7 @@
         <!-- Campo E-mail -->
         <div class="form-group">
           <label>E-mail</label>
-          <input
-            type="email"
-            [(ngModel)]="clienteAtual.email"
-            name="email"
-            placeholder="exemplo@email.com"
-          />
+          <input type="email" [(ngModel)]="clienteAtual.email" name="email" placeholder="exemplo@email.com" />
         </div>
 
         <div class="modal-rodape">

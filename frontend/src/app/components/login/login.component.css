@@ -76,14 +76,14 @@
 }
 
 .form-group input:focus {
-  border-color: #3b82f6;
+  border-color: #4b2a49;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .btn-entrar {
   width: 100%;
   padding: 0.85rem;
-  background: #1e293b;
+  background: #4b2a49;
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -95,7 +95,7 @@
 }
 
 .btn-entrar:hover:not(:disabled) {
-  background: #0f172a;
+  background: #7e537b;
 }
 
 .btn-entrar:disabled {

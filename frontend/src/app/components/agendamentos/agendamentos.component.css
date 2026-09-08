@@ -10,13 +10,13 @@
 
 .modulo-header h2 {
   margin: 0;
-  color: #1e293b;
+  color: #4b2a49;
   font-size: 1.75rem;
 }
 
 .modulo-header p {
   margin: 0.25rem 0 0;
-  color: #64748b;
+  color: #4b2a49;
   font-size: 0.95rem;
 }
 
@@ -66,7 +66,7 @@
 }
 
 .alerta-sucesso {
-  background-color: #dcfce7;
+  background-color: #4b2a49;
   border: 1px solid #22c55e;
   color: #15803d;
   font-weight: 500;
@@ -96,7 +96,7 @@
 
 .card-header h3 {
   margin: 0;
-  color: #1e293b;
+  color: #4b2a49;
   font-size: 1.15rem;
 }
 
@@ -109,13 +109,13 @@
 .form-group label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #475569;
+  color: #4b2a49;
   margin-bottom: 0.35rem;
 }
 
 .form-group select, .form-group input {
   padding: 0.65rem 0.85rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #4b2a49;
   border-radius: 6px;
   font-size: 0.95rem;
   outline: none;
@@ -123,7 +123,7 @@
 }
 
 .form-group select:focus, .form-group input:focus {
-  border-color: #3b82f6;
+  border-color: #4b2a49;
 }
 
 .campo-invalido {
@@ -147,7 +147,7 @@
 .btn-agendar {
   width: 100%;
   padding: 0.85rem;
-  background-color: #3b82f6;
+  background-color: #4b2a49;
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -159,7 +159,7 @@
 }
 
 .btn-agendar:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: #7e537b;
 }
 
 .btn-agendar:disabled {
@@ -181,7 +181,7 @@
 .tabela-dados th {
   background-color: #f8fafc;
   padding: 0.75rem 0.9rem;
-  color: #475569;
+  color: #4b2a49;
   font-size: 0.85rem;
   font-weight: 700;
   border-bottom: 2px solid #e2e8f0;
@@ -190,7 +190,7 @@
 .tabela-dados td {
   padding: 0.75rem 0.9rem;
   border-bottom: 1px solid #f1f5f9;
-  color: #334155;
+  color: #7e537b;
   font-size: 0.9rem;
 }
 
@@ -200,7 +200,7 @@
 
 .badge-hora {
   background-color: #e0f2fe;
-  color: #0369a1;
+  color: #7e537b;
   font-weight: 700;
   padding: 0.25rem 0.55rem;
   border-radius: 4px;
@@ -209,7 +209,7 @@
 
 .badge-servico {
   background-color: #f1f5f9;
-  color: #334155;
+  color: #7e537b;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.82rem;
@@ -218,18 +218,18 @@
 
 .profissional-destaque {
   font-weight: 600;
-  color: #1e293b;
+  color: #4b2a49;
 }
 
 .cadeira-sub {
-  color: #64748b;
+  color: #4b2a49;
   font-size: 0.8rem;
 }
 
 .sem-registros {
   text-align: center;
   padding: 2.5rem !important;
-  color: #94a3b8;
+  color: #4b2a49;
 }
 
 @media (max-width: 900px) {
